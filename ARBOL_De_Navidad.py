@@ -7,7 +7,7 @@ import random
 
 
 
-class Arbol_Navideño :
+class Arbol :
     
     def __init__(self) :
         
@@ -155,7 +155,7 @@ class Arbol_Navideño :
         
 
 if __name__ == "__main__" :
-      
-      Arbol_Navideño()   
+      # ejecuta el programa 
+      Arbol()   
       
      
