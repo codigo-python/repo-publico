@@ -11,7 +11,7 @@ class Arbol :
     
     def __init__(self) :
         
-        self.indices = [ ]
+      
         self.objs_nieve = [ ]
         self.contador = 0
         
@@ -34,13 +34,32 @@ class Arbol :
         ''' creamos los triángulos que formarán el arbol navideño mediante un bucle for '''
         coordenadas = x1, y1, x2, y2, x3, y3 = 180, 150, 420, 150, 300, 110
 
+        color = lambda x : random.choice(x) 
+        
+        colores = ["blue", "orange", "yellow", "skyblue"]
+
         for i in range(7) :
             
             # se guarda una tupla de las coordenadas de los lados izquierdos y derechos de cada triangulo creado que servía después para agregar los adornos al arbol .
-            self.indices.extend([(x1, y1, x2, y2)] ) 
         
-            self.canvas.create_polygon(coordenadas, fill = "green") 
-       
+            self.canvas.create_polygon(coordenadas, fill = "green")           
+            
+            n = random.choice([0, 1])
+            
+            if (n == 1) :          
+     
+                # si n = 1 se crean dos ovalos una a la izquierda y otro a la derecha del triángulo 
+                self.canvas.create_oval((x1+10, y1, x1+30, y1+20 ) , fill = color(colores))
+                self.canvas.create_oval((x2-10, y2, x2+10, y2+20) , fill = color(colores))
+                
+            else :
+                
+                # si no se crean dos rectangulos .
+                self.canvas.create_rectangle((x1+10, y1, x1+30, y1+20 ) , fill = color(colores))
+                self.canvas.create_rectangle((x2-10, y2, x2+10, y2+20) , fill = color(colores))
+                
+            
+                   
             x1 = x1 - 30
             y1 = y1 + 50
             x2 = 600-x1
@@ -49,10 +68,8 @@ class Arbol :
             y3 = y3 + 35
         
             coordenadas = x1, y1, x2, y2, x3, y3
-            
         
-                        
-        self.add_adornos() 
+                       
         
         self.canvas.create_text((300, 300 ), text = "   FELIZ\nNAVIDAD", fill = "red", font = "Verdana 10 bold")        
 
@@ -74,43 +91,7 @@ class Arbol :
         self.canvas.pack(side = tk.TOP, pady = 50)
         
         self.root.mainloop()
-            
-        
-    
-    ''' método dónde se utiliza la lista self.indices que contiene las coordenadas de las esquinas izquierdas y derechas de cada polígono triangular que forma el árbol para crear adornos aleatorios pueden ser ovalos o rectángulos . '''        
-    def add_adornos(self) :
-      
-      
-        for i in self.indices :
-            n = random.choice([0,1])
-            LEFT_x1 = i[0] + 10
-            LEFT_y1 = i[1]
-            LEFT_x2 = LEFT_x1 + 20
-            LEFT_y2 = LEFT_y1 + 20
-            lado_LEFT = LEFT_x1, LEFT_y1, LEFT_x2, LEFT_y2
-            
-            RIGHT_x1 = i[2] - 10
-            RIGHT_y1 = i[3]
-            RIGHT_x2 = RIGHT_x1 + 20
-            RIGHT_y2 = RIGHT_y1 + 20
-            lado_RIGHT = RIGHT_x1, RIGHT_y1, RIGHT_x2, RIGHT_y2
-            
-            color = lambda x : random.choice(x)
-            colores = ["blue", "orange", "yellow", "skyblue"]
-            
-            if n :               
-                
-                self.canvas.create_oval(lado_LEFT, fill = color(colores))
-                self.canvas.create_oval(lado_RIGHT, fill = color(colores))
-                
-            
-            else :
-                
-                self.canvas.create_rectangle(lado_LEFT, fill = color(colores))
-                self.canvas.create_rectangle(lado_RIGHT, fill = color(colores))
-
-                         
-              
+                    
               
                 
     ''' Metodo que creara 200 ovalos que representara la nieve ''' 
